@@ -8,7 +8,7 @@ require Mojo::URL;
 
 use base 'Mojolicious::Plugin';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 my %defaults = (
     'js_base'  => '/js',
@@ -25,6 +25,8 @@ sub register {
         $self->{$_} =
           defined($params->{$_}) ? delete($params->{$_}) : $defaults{$_};
     }
+
+    push @{$app->renderer->classes}, __PACKAGE__;
 
     $app->renderer->add_helper(
         require_js => sub {
@@ -81,13 +83,16 @@ sub include_js {
 
         $c->stash('$linked_item' => $self->_prepend_path($_, 'js_base'));
 
-        push @ct,
-          $c->render_partial(
-            template       => 'LinkedContent/js',
-            format         => 'html',
-            handler        => 'ep',
+        push @ct, $c->render_partial(
+            template => 'LinkedContent/js',
+            format   => 'html',
+            handler  => 'ep',
+
+            # template_class is deprecated since Mojolicious 2.62
+            # was removed at some point which broke my code.
+            # But it'll live here for a while
             template_class => __PACKAGE__
-          );
+        );
     }
     $c->stash('$linked_item', undef);
     return join '', @ct;
@@ -105,13 +110,16 @@ sub include_css {
 
         $c->stash('$linked_item' => $self->_prepend_path($_, 'css_base'));
 
-        push @ct,
-          $c->render_partial(
-            template       => 'LinkedContent/css',
-            format         => 'html',
-            handler        => 'ep',
+        push @ct, $c->render_partial(
+            template => 'LinkedContent/css',
+            format   => 'html',
+            handler  => 'ep',
+
+            # template_class is deprecated since Mojolicious 2.62
+            # was removed at some point which broke my code.
+            # But it'll live here for a while
             template_class => __PACKAGE__
-          );
+        );
     }
     $c->stash('$linked_item', undef);
     return join '', @ct;
