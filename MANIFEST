@@ -19,9 +19,6 @@ META.yml
 README
 t/00.load.t
 t/linked_content.t
-t/perlcritic.t
-t/pod-coverage.t
-t/pod.t
 xt/perlcritic.t
 xt/pod-coverage.t
 xt/pod.t

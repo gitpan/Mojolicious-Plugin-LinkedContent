@@ -28,4 +28,4 @@ resources:
   bugtracker: https://github.com/yko/mojolicious-plugin-linkedcontent/issues
   license: http://dev.perl.org/licenses
   repository: https://github.com/yko/mojolicious-plugin-linkedcontent
-version: 0.05
+version: 0.06

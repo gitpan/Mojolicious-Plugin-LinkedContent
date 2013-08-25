@@ -8,7 +8,7 @@ require Mojo::URL;
 
 use base 'Mojolicious::Plugin';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 my %defaults = (
     'js_base'  => '/js',
@@ -83,10 +83,11 @@ sub include_js {
 
         $c->stash('$linked_item' => $self->_prepend_path($_, 'js_base'));
 
-        push @ct, $c->render_partial(
+        push @ct, $c->render(
             template => 'LinkedContent/js',
             format   => 'html',
             handler  => 'ep',
+            partial  => 1,
 
             # template_class is deprecated since Mojolicious 2.62
             # was removed at some point which broke my code.
@@ -110,10 +111,11 @@ sub include_css {
 
         $c->stash('$linked_item' => $self->_prepend_path($_, 'css_base'));
 
-        push @ct, $c->render_partial(
+        push @ct, $c->render(
             template => 'LinkedContent/css',
             format   => 'html',
             handler  => 'ep',
+            partial  => 1,
 
             # template_class is deprecated since Mojolicious 2.62
             # was removed at some point which broke my code.
@@ -236,9 +238,17 @@ If no basedirs provided, '/js' and '/css' used by default
 
 Yaroslav Korshak  C<< <ykorshak@gmail.com> >>
 
+=head1 CREDITS
+
+=over 2
+
+Oliver Günther
+
+=back
+
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (C) 2010 - 2011, Yaroslav Korshak
+Copyright (C) 2010 - 2013, Yaroslav Korshak
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself. See L<perlartistic>.
